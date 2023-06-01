@@ -73,6 +73,7 @@ def api_locations(request):
             safe=False,
         )
 
+
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_location(request, pk):
     """
@@ -124,7 +125,7 @@ def api_location(request, pk):
             )
         except Location.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:  # PUT
         try:
             content = json.loads(request.body)
             location = Location.objects.get(id=pk)
@@ -244,7 +245,7 @@ def api_bin(request, pk):
             )
         except Bin.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:  # PUT
         try:
             content = json.loads(request.body)
             bin = Bin.objects.get(id=pk)

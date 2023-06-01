@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 class BinVO(models.Model):
     closet_name = models.CharField(max_length=100)
@@ -22,3 +24,21 @@ class Shoe(models.Model):
         related_name='shoes',
         null=True,
     )
+
+    def get_api_url(self):
+        return reverse("api_location", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return f"{self.name} - {self.brand}in {self.catagory}"
+
+    class Meta:
+        ordering = [
+            'name',
+            'brand',
+            'color',
+            'size',
+            'details',
+            'reviews',
+            'catagory',
+            'picture_url'
+            ]

@@ -12,8 +12,8 @@ django.setup()
 from shoes_rest.models import BinVO
 
 
-def get_Bin():
-    response = requests.get("http://127.0.0.1:8000/api/bin/")
+def get_bins():
+    response = requests.get("http://wardrobe-api:8000/api/bins/")
     content = json.loads(response.content)
     for bin in content['bins']:
         BinVO.objects.create(
@@ -30,8 +30,7 @@ def poll():
     while True:
         print('Shoes poller polling for data')
         try:
-            # Write your polling logic, here
-            pass
+            get_bins()
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)

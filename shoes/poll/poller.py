@@ -9,8 +9,22 @@ sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "shoes_project.settings")
 django.setup()
 
-# Import models from hats_rest, here.
-# from shoes_rest.models import Something
+from shoes_rest.models import BinVO
+
+
+def get_Bin():
+    response = requests.get("http://127.0.0.1:8000/api/bin/")
+    content = json.loads(response.content)
+    for bin in content['bins']:
+        BinVO.objects.create(
+            import_href=bin['href'],
+            defaults={
+                'closet_name': bin['closet_name'],
+                'bin_number': bin['bin_number'],
+                'bin_size': bin['bin_size']
+            },
+        )
+
 
 def poll():
     while True:

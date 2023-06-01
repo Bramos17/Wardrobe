@@ -2,15 +2,19 @@
 
 Team:
 
-* Person 1 - Which microservice?
+* Brandon Ramos - Shoes
 * Sophia Tony-Egbuniwe - Hats
 
 ## Design
 
 ## Shoes microservice
 
-Explain your models and integration with the wardrobe
-microservice, here.
+In developing the microservice architecture, my primary approach is to utilize the knowledge and skills I've acquired over the last few months to develop comprehensive models that will be seamlessly integrated with the Wardrobe Microservice. This will allow each service to have its own database and avoid any single point of failure in the system.🤞🏾 These models will provide capabilities for creating, deleting, and retrieving lists of shoes, as well as categorizing them efficiently.💪🏾 My newly acquired knowledge in front-end coding will be leveraged to design interactive forms for user engagement.✅ Key forms include 'Shoe List' and 'New Shoe Form,' among others.
+
+These interactive forms will provide users with a platform to view their customized shoe collections within their wardrobe and explore other users' collections. This approach aims to enhance user experience and encourage active participation within our Wardrobe platform.
+
+For the implementation of the poller, my strategy involves creating an efficient and robust system that will periodically fetch data from the microservices. Poller will be designed to react to changes in the microservices, ensuring that the system is consistently updated.
+By combining my skills and knowledge in these areas, the result will be a scalable, reliable, and efficient system that optimally serves the needs of our users.
 
 ## Hats microservice
 

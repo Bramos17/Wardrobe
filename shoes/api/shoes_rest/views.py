@@ -17,7 +17,7 @@ class BinVOEncoder(ModelEncoder):
 
 
 class ShoeListEncoder(ModelEncoder):
-    model = BinVO
+    model = Shoe
     properties = [
         'name',
         'brand',

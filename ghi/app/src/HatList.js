@@ -18,6 +18,7 @@ function HatListColumn(props) {
                             <p>Fabric: {data.fabric}</p>
                             <p>Color: {data.color}</p>
                         </div>
+                        <button onClick={() => { return fetch(`http://localhost:8090/api/hats/${data.id}`, {method: "DELETE"})}} type="button" className="btn btn-info">Delete Hat</button>
                     </div>
                 );
             })}
@@ -42,7 +43,7 @@ const HatList = (props) => {
                     requests.push(fetch(detailUrl));
                 }
 
-                const responses =  await Promise.all(requests);
+                const responses = await Promise.all(requests);
 
                 const columns = [[], [], [], []];
 

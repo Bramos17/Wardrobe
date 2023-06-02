@@ -11,7 +11,7 @@ class BinVOEncoder(ModelEncoder):
     properties = [
         'closet_name',
         'bin_number',
-        'bin_size'
+        'bin_size',
         'import_href'
         ]
 
@@ -45,14 +45,12 @@ class ShoeDetailEncoder(ModelEncoder):
         'reviews',
         'catagory',
         'picture_url',
-        'bin'
+        'bin',
+        'id'
         ]
     encoders = {
         'bin': BinVOEncoder()
     }
-
-    def get_extra_data(self, o):
-        return {'bin': o.bin.bin_name}
 
 
 @require_http_methods(["GET", "POST"])
@@ -68,8 +66,8 @@ def api_shoe_list(request):
         content = json.loads(request.body)
 
         try:
-            href = f'/api/bins/{content["bin"]}/'
-            bin = BinVO.objects.get(import_href=href)
+            bin_href = content['bin']
+            bin = BinVO.objects.get(import_href=bin_href)
             content["bin"] = bin
         except BinVO.DoesNotExist:
             return JsonResponse(
@@ -94,5 +92,7 @@ def api_show_shoe(request, id):
             safe=False,
         )
     else:
-        count = Shoe.objects.filter(id=id).delete()
-        return JsonResponse({"deleted": count > 0})
+        count, _ = Shoe.objects.filter(id=id).delete()
+        return JsonResponse(
+            {"deleted": count > 0}
+            )

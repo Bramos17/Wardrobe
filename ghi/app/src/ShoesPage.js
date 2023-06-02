@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function ShoeColumn(props) {
@@ -7,16 +7,14 @@ function ShoeColumn(props) {
         const handleDeleteShoe = async (id) => {
             const shoeUrl = `http://localhost:8080/api/shoes/${id}`;
             const response = await fetch(shoeUrl, { method: "DELETE" });
-            if (response.ok) {
-            }
+            console.log(response);
         };
 
         return (
             <div className="container">
                 <div className="row row-cols-1 row-cols-md-2 g-4">
                     <div className="col">
-                        {props.shoes.map((shoeData) => {
-                            const shoe = shoeData.shoe;
+                        {props.shoes.map((shoe) => {
                             return (
                                 <div key={shoe.id} className="card mb-3 shadow" style={{ width: "18rem" }}>
                                     <img src={shoe.picture_url} className="card-img-top" alt={shoe.name} />
@@ -33,8 +31,7 @@ function ShoeColumn(props) {
                                     </ul>
                                     <div className="card-footer">
                                         <button className="btn btn-danger" onClick={() => handleDeleteShoe(shoe.id)}>Delete</button>
-                                        <button className="btn btn-primary" onClick={() => navigator.push('/shoes/new')}>Create</button>
-                                        <NavLink href={'/shoes/new'} className="btn btn-primary btn-lg active" role="button" aria-pressed="true">Create Shoe</NavLink>
+
                                     </div>
                                 </div>
                             );
@@ -95,6 +92,9 @@ const ShoesPage = (props) => {
                     <div className="col-lg-6 mx-auto">
                         <p className="lead mb-4">"Create your own virtual shoe collection featuring the most popular and your personal favorite footwear."</p>
                     </div>
+                    <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <Link to='/shoes/new' className="btn btn-primary btn-lg px-4 gap-3">Create New shoe</Link>
+                </div>
                 </div>
                 <div className="container">
                     <h2>Your Shoes!</h2>

@@ -51,6 +51,9 @@ class ShoeDetailEncoder(ModelEncoder):
         'bin': BinVOEncoder()
     }
 
+    def get_extra_data(self, o):
+        return {'bin': o.bin.bin_name}
+
 
 @require_http_methods(["GET", "POST"])
 def api_shoe_list(request):

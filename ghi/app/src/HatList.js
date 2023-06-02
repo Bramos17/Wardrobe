@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function HatListColumn(props) {
     return (
@@ -77,6 +77,9 @@ const HatList = (props) => {
         <>
             <div className="px-4 py-5 my-5 mt-0 text-center">
                 <h1 className="display-5 fw-bold">Wardrobify with Hats</h1>
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <Link to='/hats/new' className="btn btn-primary btn-lg px-4 gap-3">Create New Hat</Link>
+                </div>
             </div>
             <div className="container">
                 <h2>Hats List</h2>

@@ -17,7 +17,7 @@ class BinVOEncoder(ModelEncoder):
 
 
 class ShoeListEncoder(ModelEncoder):
-    model = Shoe
+    model = BinVO
     properties = [
         'name',
         'brand',
@@ -50,6 +50,9 @@ class ShoeDetailEncoder(ModelEncoder):
     encoders = {
         'bin': BinVOEncoder()
     }
+
+    def get_extra_data(self, o):
+        return {'bin': o.bin.bin_name}
 
 
 @require_http_methods(["GET", "POST"])

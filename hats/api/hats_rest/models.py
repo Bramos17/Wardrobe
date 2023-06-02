@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -18,3 +19,6 @@ class Hat(models.Model):
         related_name='hats',
         on_delete=models.CASCADE,
     )
+
+    def get_api_url(self):
+        return reverse('api_show_hat', kwargs={'id': self.id})

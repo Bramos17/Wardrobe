@@ -17,7 +17,7 @@ class BinVOEncoder(ModelEncoder):
 
 
 class ShoeListEncoder(ModelEncoder):
-    model = BinVO
+    model = Shoe
     properties = [
         'name',
         'brand',
@@ -59,24 +59,25 @@ def api_shoe_list(request):
         return JsonResponse(
             {"shoes": shoes},
             encoder=ShoeListEncoder,
+            safe=False,
         )
     else:
         content = json.loads(request.body)
 
         try:
-            heref = f'/api/bin/{content["bin"]}/'
-            bin = BinVO.objects.get(import_href=heref)
+            href = f'/api/bins/{content["bin"]}/'
+            bin = BinVO.objects.get(import_href=href)
             content["bin"] = bin
         except BinVO.DoesNotExist:
             return JsonResponse(
-                {"error": "Bin not found"},
+                {"message": "Invalid bin id"},
                 status=400,
             )
         shoe = Shoe.objects.create(**content)
         return JsonResponse(
             shoe,
             encoder=ShoeDetailEncoder,
-            safe=False
+            safe=False,
         )
 
 

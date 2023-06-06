@@ -75,37 +75,32 @@ function NewShoeForm() {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        const data = {
-            name: name,
-            brand: brand,
-            color: color,
-            size: size,
-            details: details,
-            reviews: reviews,
-            catagory: catagory,
-            picture_url: picture_url,
-            bin: bin,
-        }
-        console.log(data)
-
-
         const shoeUrl = 'http://localhost:8080/api/shoes/';
         const fetchConfig = {
             method: "post",
-            body: JSON.stringify(data),
+            body: JSON.stringify({
+                name: name,
+                brand: brand,
+                color: color,
+                size: size,
+                details: details,
+                reviews: reviews,
+                catagory: catagory,
+                picture_url: picture_url,
+                bin: bin,
+            }),
             headers: {
                 "Content-type": "application/json",
             }
         };
-        console.log(fetchConfig)
+        
 
         const response = await fetch(shoeUrl, fetchConfig);
 
-        console.log(response)
-
+        
         if (response.ok) {
             const newShoe = await response.json();
-            console.log(newShoe);
+            
 
             setName("")
             setBrand("")

@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 
 function HatForm() {
     const [locations, setLocations] = useState([]);
+    const [formData, setFormData] = useState({
+        styleName:"",
+        fabric:"",
+        color:"",
+        pictureUrl: "",
+        location:""
+    })
 
     const fetchData = async () => {
         const url = 'http://localhost:8100/api/locations/';
@@ -16,35 +23,12 @@ function HatForm() {
     useEffect(() => {
         fetchData();
     }, []);
-
-    const [styleName, setStyleName] = useState('');
-    const handleStyleNameChange = (event) => {
-        const value = event.target.value;
-        setStyleName(value);
-    }
-
-    const [fabric, setFabric] = useState('');
-    const handleFabricChange = (event) => {
-        const value = event.target.value;
-        setFabric(value);
-    }
-
-    const [color, setColor] = useState('');
-    const handleColorChange = (event) => {
-        const value = event.target.value;
-        setColor(value);
-    }
-
-    const [pictureUrl, setPictureUrl] = useState('');
-    const handlePictureUrlChange = (event) => {
-        const value = event.target.value;
-        setPictureUrl(value);
-    }
-
-    const [location, setLocation] = useState('');
-    const handleLocationChange = (event) => {
-        const value = event.target.value;
-        setLocation(value);
+    
+    const handleInputChange = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        })
     }
 
     const handleSubmit = async(event) => {
@@ -67,15 +51,10 @@ function HatForm() {
             },
         };
 
-        // console.log(data);
-
         const response = await fetch(hatUrl, fetchConfig);
-
-        // console.log(response);
 
         if (response.ok) {
             const newHat = await response.json();
-            console.log(newHat);
 
             setStyleName('');
             setFabric('');
@@ -92,23 +71,23 @@ function HatForm() {
                     <h1>Create A New Hat</h1>
                     <form onSubmit={handleSubmit} id="create-hat-form">
                         <div className="form-floating mb-3">
-                            <input value={styleName} onChange={handleStyleNameChange} placeholder="Style Name" required type="text" id="style_name" className="form-control" name="style_name" />
+                            <input value={styleName} onChange={handleInputChange} placeholder="Style Name" required type="text" id="style_name" className="form-control" name="style_name" />
                             <label htmlFor="style_name">Style Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input value={fabric} onChange={handleFabricChange} placeholder="Fabric" required type="text" id="fabric" className="form-control" name="fabric" />
+                            <input value={fabric} onChange={handleInputChange} placeholder="Fabric" required type="text" id="fabric" className="form-control" name="fabric" />
                             <label htmlFor="fabric">Fabric</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input value={color} onChange={handleColorChange} placeholder="Color" required type="text" id="color" className="form-control" name="color" />
+                            <input value={color} onChange={handleInputChange} placeholder="Color" required type="text" id="color" className="form-control" name="color" />
                             <label htmlFor="color">Color</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input value={pictureUrl} onChange={handlePictureUrlChange} placeholder="Picture URL" required type="text" id="picture_url" className="form-control" name="picture_url" />
+                            <input value={pictureUrl} onChange={handleInputChange} placeholder="Picture URL" required type="text" id="picture_url" className="form-control" name="picture_url" />
                             <label htmlFor="picture_url">Picture URL</label>
                         </div>
                         <div className="mb-3">
-                            <select value={location} onChange={handleLocationChange} required id="location" className="form-select" name="location">
+                            <select value={location} onChange={handleInputChange} required id="location" className="form-select" name="location">
                                 <option>Choose a Location</option>
                                 {locations.map(location => {
                                     return (

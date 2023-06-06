@@ -4,9 +4,6 @@ import json
 from common.json import ModelEncoder
 from .models import LocationVO, Hat
 
-# Create your views here.
-
-
 class LocationVODetailEncoder(ModelEncoder):
     model = LocationVO
     properties = ['closet_name', 'import_href']
@@ -49,8 +46,7 @@ def api_list_hats(request, location_vo_id=None):
     else:
         content = json.loads(request.body)
         try:
-            location_href = content['location']
-            location = LocationVO.objects.get(import_href=location_href)
+            location = LocationVO.objects.get(import_href=content['location'])
             content['location'] = location
         except LocationVO.DoesNotExist:
             return JsonResponse(

@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 function HatListColumn(props) {
+    const handleDelete = async (id) => {
+        const resp = fetch(`http://localhost:8090/api/hats/${id}`, {method: "DELETE"})
+        if (resp.ok) {
+            props.updateHats()
+        } else {
+            console.log("Error")
+        }
+    }
+
     return (
         <div className="col">
             {props.list.map(data => {
@@ -18,7 +27,7 @@ function HatListColumn(props) {
                             <p>Fabric: {data.fabric}</p>
                             <p>Color: {data.color}</p>
                         </div>
-                        <button onClick={() => { return fetch(`http://localhost:8090/api/hats/${data.id}`, {method: "DELETE"})}} type="button" className="btn btn-info">Delete Hat</button>
+                        <button onClick={() =>  handleDelete(data.id)} type="button" className="btn btn-info">Delete Hat</button>
                     </div>
                 );
             })}
@@ -87,7 +96,7 @@ const HatList = (props) => {
                 <div className="row">
                     {hatColumns.map((hatList, index) => {
                         return (
-                            <HatListColumn key={index} list={hatList} />
+                            <HatListColumn key={index} list={hatList} updateHats={fetchData}/>
                         );
                     })}
                 </div>

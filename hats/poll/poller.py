@@ -19,10 +19,9 @@ def poll():
     while True:
         print('Hats poller polling for data')
         try:
-            # Write your polling logic, here
             response = requests.get('http://wardrobe-api:8000/api/locations/')
             content = json.loads(response.content)
-            print(content)
+            
             for location in content['locations']:
                 LocationVO.objects.update_or_create(
                     import_href=location['href'],
